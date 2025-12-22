@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avatar AI Face Capture</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @keyframes scan {
+      0% { top: 0%; opacity: 0; }
+      50% { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+    .scan-line {
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to bottom, transparent, #3b82f6, transparent);
+      box-shadow: 0 0 15px #3b82f6;
+      animation: scan 3s linear infinite;
+      z-index: 10;
+    }
+    .biolum-glow {
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen overflow-x-hidden">
+  <div id="root"></div>
+</body>
+</html>

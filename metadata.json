@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Avatar AI Face Capture",
+  "description": "A futuristic facial capture application that transforms your real-life expressions and features into a high-fidelity cinematic avatar using Gemini AI.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
