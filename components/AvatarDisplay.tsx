@@ -8,6 +8,18 @@ interface AvatarDisplayProps {
 }
 
 const AvatarDisplay: React.FC<AvatarDisplayProps> = ({ result, onReset }) => {
+  const clanNames = {
+    forest: '森林族 (Omatikaya)',
+    sea: '礁岩族 (Metkayina)',
+    ash: '灰烬族 (Varang)'
+  };
+
+  const clanColors = {
+    forest: 'text-green-400 bg-green-500/10',
+    sea: 'text-cyan-400 bg-cyan-500/10',
+    ash: 'text-red-400 bg-red-500/10'
+  };
+
   return (
     <div className="w-full max-w-5xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <div className="grid md:grid-cols-2 gap-8">
@@ -26,9 +38,14 @@ const AvatarDisplay: React.FC<AvatarDisplayProps> = ({ result, onReset }) => {
         {/* Analysis Details */}
         <div className="flex flex-col justify-center space-y-6">
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
-              生物 DNA 链路已连接
-            </h2>
+            <div className="flex items-center gap-3">
+               <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+                生物 DNA 链路已连接
+              </h2>
+              <span className={`px-2 py-0.5 rounded text-[10px] font-mono border border-current ${clanColors[result.clan]}`}>
+                {clanNames[result.clan]}
+              </span>
+            </div>
             <p className="text-slate-400 font-mono text-sm tracking-tight uppercase">
               面部特征映射与捕捉完成
             </p>

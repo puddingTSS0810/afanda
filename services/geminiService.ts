@@ -1,6 +1,6 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { FaceAnalysis } from "../types";
+import { FaceAnalysis, Clan } from "../types";
 
 const API_KEY = process.env.API_KEY || '';
 
@@ -59,18 +59,30 @@ export const analyzeFace = async (base64Image: string): Promise<FaceAnalysis> =>
   return JSON.parse(text) as FaceAnalysis;
 };
 
-export const generateAvatar = async (analysis: FaceAnalysis): Promise<string> => {
-  // 使用 Pollinations.ai 的开源免费接口 (基于 Stable Diffusion 等模型)
-  // 此接口不需要 API Key，且完全免费
-  
+export const generateAvatar = async (analysis: FaceAnalysis, clan: Clan): Promise<string> => {
   const seed = Math.floor(Math.random() * 1000000);
-  const basePrompt = `cinematic 3D render of a Na'vi avatar character from Avatar movie, biological blue skin with bioluminescent glowing spots, tribal patterns, ${analysis.eyeColor} large expressive eyes, 8k resolution, photorealistic, masterpiece, Weta Digital style.`;
-  const facialDetails = `Specific facial features: ${analysis.visualDescription}, expression is ${analysis.expression}, hairstyle is ${analysis.hairStyle}.`;
+  
+  // 种族特定的 Prompt 逻辑
+  let clanPrompt = "";
+  switch(clan) {
+    case 'sea':
+      clanPrompt = "Metkayina reef clan, pale teal and light blue skin, deep cyan expressive eyes, wet skin effect, bioluminescent patterns inspired by sea life, underwater sunlight rays background, gills on neck, fin-like arm structures.";
+      break;
+    case 'ash':
+      clanPrompt = "Varang volcanic Ash People, greyish-charcoal skin tone, glowing volcanic red and orange bioluminescent spots, scarred skin texture, ash and fire background, intense amber eyes, dark obsidian jewelry.";
+      break;
+    case 'forest':
+    default:
+      clanPrompt = "Omatikaya forest clan, classic deep blue bioluminescent skin, bright yellow eyes, delicate facial dots, lush bioluminescent jungle background, wood and leaf accessories.";
+      break;
+  }
+
+  const basePrompt = `cinematic 3D render of a Na'vi avatar character, ${clanPrompt}, photorealistic, masterpiece, 8k, Weta Digital cinematic lighting.`;
+  const facialDetails = `Face details: ${analysis.visualDescription}, expression: ${analysis.expression}, hairstyle: ${analysis.hairStyle}.`;
   
   const fullPrompt = encodeURIComponent(`${basePrompt}, ${facialDetails}`);
   const imageUrl = `https://image.pollinations.ai/prompt/${fullPrompt}?width=1024&height=1024&seed=${seed}&nologo=true`;
 
-  // 预加载图片以确保体验流畅
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = "anonymous";

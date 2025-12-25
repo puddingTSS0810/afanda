@@ -1,4 +1,6 @@
 
+export type Clan = 'forest' | 'sea' | 'ash';
+
 export interface FaceAnalysis {
   expression: string;
   eyeColor: string;
@@ -10,7 +12,7 @@ export interface FaceAnalysis {
     neutral: number;
     intense: number;
   };
-  visualDescription: string; // 用于生成图像的详细面部描述
+  visualDescription: string;
 }
 
 export interface CaptureState {
@@ -21,4 +23,5 @@ export interface CaptureState {
 export interface AvatarResult {
   imageUrl: string;
   analysis: FaceAnalysis;
+  clan: Clan;
 }
