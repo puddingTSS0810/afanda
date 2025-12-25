@@ -10,6 +10,7 @@ export interface FaceAnalysis {
     neutral: number;
     intense: number;
   };
+  visualDescription: string; // 用于生成图像的详细面部描述
 }
 
 export interface CaptureState {

@@ -12,13 +12,13 @@ const App: React.FC = () => {
   const handleCapture = async (base64: string) => {
     setState({ status: 'analyzing' });
     try {
-      // 1. Analyze the facial features
+      // 1. 使用 Gemini 3 Flash 分析面部 (免费层级)
       const analysis = await analyzeFace(base64);
       
       setState({ status: 'generating' });
       
-      // 2. Generate the stylized avatar
-      const imageUrl = await generateAvatar(analysis, base64);
+      // 2. 使用开源接口生成化身 (完全免费)
+      const imageUrl = await generateAvatar(analysis);
       
       setResult({
         imageUrl,
@@ -50,13 +50,13 @@ const App: React.FC = () => {
           <div>
             <h1 className="text-2xl font-bold tracking-tight">阿凡达 AI</h1>
             <p className="text-blue-400 font-mono text-[10px] tracking-[0.2em] uppercase">
-              潘多拉生物交互接口
+              潘多拉生物交互接口 (开源版)
             </p>
           </div>
         </div>
         
         <div className="flex gap-2">
-          {['系统正常', '同步就绪', '神经链接已建立'].map((tag) => (
+          {['系统正常', '开源引擎就绪', '免费链路已建立'].map((tag) => (
             <span key={tag} className="px-3 py-1 rounded bg-blue-500/10 border border-blue-500/20 text-[10px] font-mono text-blue-300">
               {tag}
             </span>
@@ -103,7 +103,7 @@ const App: React.FC = () => {
                     }
                   `}</style>
                   <p className="font-mono text-sm text-blue-300 animate-pulse uppercase tracking-widest">
-                    {state.status === 'analyzing' ? '解码 DNA 标记中' : '生成神经外壳中'}
+                    {state.status === 'analyzing' ? '解码 DNA 标记中' : '渲染数字生命体中'}
                   </p>
                 </div>
               )}
@@ -129,12 +129,12 @@ const App: React.FC = () => {
       {/* Footer Info */}
       <footer className="mt-12 py-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center text-[10px] font-mono text-slate-500 gap-4">
         <div className="flex gap-8">
-          <span>项目代码: AVATAR-GEN-2.5</span>
-          <span>当前坐标: 潘多拉 - 04 区</span>
+          <span>项目代码: AVATAR-OPEN-FREE</span>
+          <span>当前坐标: 潘多拉 - 开源社区</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          <span>实时神经流链路激活中</span>
+          <span>实时免费神经流链路激活中</span>
         </div>
       </footer>
     </div>
